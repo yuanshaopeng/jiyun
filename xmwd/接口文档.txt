@@ -1,0 +1,33 @@
+服务器地址：http://localhost:8080;
+后台路由 
+开放路由：“/api”,
+权限路由：“/admin"
+
+登陆接口
+请求路径:"/api/login",
+请求方式:"post",
+请求参数:{
+    userName:"",
+    passWord:""
+}
+响应参数:{
+    state:"1",
+    code:{
+        uid:用户id，
+        tokenID:用户身份令牌
+    }
+}
+
+权限验证接口
+请求路径:"/admin/isenter";
+请求方式:"post",
+请求参数:{
+    path:"/",//进入的路由地址
+},
+响应参数:{
+    state:"1",
+    code:"success"
+}
+错误响应:{
+    state:403
+}

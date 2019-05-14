@@ -1,0 +1,26 @@
+数据库名称:jiyunStudent
+
+角色集合  roleList
+_id:唯一标识,
+roleName:角色名称,
+roleRank:角色权限等级,
+
+菜单集合  menuList
+_id:唯一标识,
+menuName:菜单名称,
+childrenMenu:二级菜单,
+randOpen:菜单可开放的最低权限等级,
+path:菜单路径
+
+用户集合  userList
+_id:"
+userName:用户名称,
+passWord:登陆密码（md5加密后储存）,
+
+用户详情表  userOption
+_id:",
+userID:用户id,
+userName:用户名,
+rankID:权限ID,
+userTx:用户头像,
+userNicheng:用户昵称
