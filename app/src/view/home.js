@@ -5,6 +5,7 @@ import {
 import {option} from "../api/index";
 import routerConfig from "../router/menuRouter";
 import { Tree } from 'antd';
+import "../assets/css/home.css"
 const { TreeNode } = Tree;
 export default class extends React.Component {
     constructor(props) {
@@ -17,15 +18,9 @@ export default class extends React.Component {
 
     componentDidMount() {
         option().then(res=>{
-            console.log(res);
             this.setState({
                 menuList:res.data[2]
             })
-        })
-        //如果身份验证有误，则跳转至登陆页
-        .catch(err=>{
-            // console.log(err);
-            // this.props.history.push("/login")
         })
     }
     beforeEnter(a,b){
@@ -42,26 +37,26 @@ export default class extends React.Component {
     }
     
     render(){
-        return <div>
+        return <div className="homeIndex">
         <header>
             <h1>积云教育学生管理平台</h1>
             <div>
-
+                
             </div>
         </header>
         <section>
             <div className="left">
-            <Tree onSelect={this.handleSelect.bind(this)}>
+            <Tree onSelect={this.handleSelect.bind(this)} autoExpandParent={false} showLine={true}>
                 {
                     this.state.menuList.map((item,index)=>{
                         return (
-                            <TreeNode key={item.path?item.path:index} title={item.menuName}>
+                            <TreeNode key={item.path?item.path:index} selectable={item.children?false:true} title={item.menuName}>
                                 {
                                     item.children?item.children.map((item2,index2)=>{
-                                        return <TreeNode key={item2.path?item2.path:index2} title={item2.menuName}>
+                                        return <TreeNode key={item2.path?item2.path:index2} selectable={item2.children?false:true} title={item2.menuName}>
                                             {
                                                 item2.children?item2.children.map((item3,index3)=>{
-                                                    return <TreeNode key={item3.path?item3.path:index3} title={item3.menuName} >
+                                                    return <TreeNode key={item3.path?item3.path:index3} selectable={item3.children?false:true} title={item3.menuName} >
                                                         
                                                     </TreeNode>
                                                 }):null

@@ -3,7 +3,8 @@ import axios from "axios";
 import { 
     Input,
     Button,
-    message
+    message,
+    Icon
  } from 'antd';
 import "../assets/css/login.css";
 import {login} from "../api/index";
@@ -47,8 +48,9 @@ export default class extends Component {
     render(){
         return <div className="loginbox">
             <div className="box">
-                <Input size="large" name="userName" value={this.state.userName} onChange={this.handleInput.bind(this)} placeholder="请输入用户名" />
-                <Input size="large" name="passWord" value={this.state.passWord} onChange={this.handleInput.bind(this)} placeholder="请输入密码" />
+                <h2><i>积云教育学生管理平台</i></h2>
+                <Input prefix={<Icon type="user" style={{ color: 'rgba(0,0,0,.25)' }}></Icon>} size="large" name="userName" value={this.state.userName} onChange={this.handleInput.bind(this)} placeholder="请输入用户名" />
+                <Input prefix={<Icon type="key" style={{ color: 'rgba(0,0,0,.25)' }} />} size="large" name="passWord" value={this.state.passWord} onChange={this.handleInput.bind(this)} placeholder="请输入密码" />
                 <Button type="primary" onClick={this.handleClick.bind(this)} size="large">登陆</Button>
             </div>
         </div>
