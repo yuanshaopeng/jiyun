@@ -34,6 +34,7 @@ export let login = (data)=>{
         data:qs.stringify(data)
     })
 }
+//用户信息及首页导航接口
 export let option = ()=>{
     return axios({
         method:"get",
