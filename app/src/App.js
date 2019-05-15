@@ -16,7 +16,6 @@ function App() {
           //进行路由重定向
           return <Redirect to="/menu" ></Redirect> 
         }} ></Route>
-        
         <Route path="/menu" component={home}></Route>
         <Route path="/login" component={login}></Route>
       </Router>

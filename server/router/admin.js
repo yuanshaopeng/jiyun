@@ -150,5 +150,35 @@ router.post("/isenter",(req,res)=>{
     })
 })
 
+//获取科目方向
+router.get("/subject",(req,res)=>{
+    db.find("subjectList",{},(err,data)=>{
+        res.send({
+            state:"1",
+            code:data
+        })
+    })
+})
+
+//通过科目id获取班级列表
+router.get("/classList",(req,res)=>{
+    let subjectID = req.query.subjectID;
+    db.find("classList",{query:{subjectID}},(err,data)=>{
+        res.send({
+            state:"1",
+            code:data
+        })
+    })
+})
+//提交简历接口
+router.post("/addResumen",(req,res)=>{
+    console.log(req.body);
+    db.insertOne("resumenList",req.body,(err,data)=>{
+        res.send({
+            state:'1',
+            code:"success"
+        })
+    })
+})
 
 module.exports = router;

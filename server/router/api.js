@@ -1,4 +1,6 @@
 const express = require("express");
+const Formidable = require("formidable");
+// const fs = require("fs");
 const router = express.Router();
 const md5 = require("js-md5");
 const jwt = require("./jsonwebtoken.js");
@@ -33,6 +35,42 @@ router.post("/login",(req,res)=>{
             });
         }
         
+    })
+})
+
+//文件上传为post请求
+router.post("/upload",(req,res)=>{
+    //1、实例化表单控件
+    let form = new Formidable.IncomingForm();
+    //2、设置字符编码
+    form.encoding = "utf-8";
+    //3、设置上传文件路径
+    form.uploadDir = "./resumen";
+    //4、是否保留扩展名
+    form.keepExtensions = true;
+    //5、设置文件的最大上传大小
+    form.maxFileSize = 10*1024*1024;//10m;
+    //6、监听上传状态
+    form.parse(req,(err,option,files)=>{
+        if(err){
+            console.log(err);
+        }else{
+            console.log(files)
+            console.log("---------------------------------")
+            console.log(option);
+            let reg = /\.[a-z]+$/;
+
+            let ext = files.files.path.match(reg)[0];
+            console.log(ext);
+            // if(ext===".jpg"||ext===".png"||ext===".gif"){
+
+            // }else{
+            //     fs.unlink("./"+files.files.path,(err)=>{
+            //         console.log(err);
+            //     })
+            // }
+            res.send(files.files.path);
+        }
     })
 })
 

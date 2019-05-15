@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <form id="form1">
+        <input type="text" name="user"><br>
+        <input type="text" name="pass"><br>
+        <input type="file" name="files"><br>
+        <input type="submit" id="btn">
+    </form>
+</body>
+<script src="./jquery-3.3.1.min.js"></script>
+<script>
+    $("#btn").click(function(ev){
+        ev.preventDefault();//阻止默认事件 
+        $.ajax({
+            type:"post",
+            url:"/api/upload",
+            data:new FormData($("#form1")[0]),
+            cache:false,
+            async:false,//文件同步上传
+            contentType:false,
+            processData:false,
+            success(res){
+                console.log(res);
+            }
+
+        })
+    })
+</script>
+</html>

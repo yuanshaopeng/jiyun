@@ -49,3 +49,26 @@ export let isEnter = (data)=>{
         data:qs.stringify(data)
     })
 }
+//获取科目列表
+export let subject = ()=>{
+    return axios({
+        method:"get",
+        url:"/admin/subject",
+    })
+}
+//获取班级列表
+export let classList = (data)=>{
+    return axios({
+        method:"get",
+        url:"/admin/classList",
+        params:data
+    })
+}
+//提交简历接口
+export let addResumen = (data)=>{
+    return axios({
+        method:"post",
+        url:"/admin/addResumen",
+        data:qs.stringify(data)
+    })
+}
