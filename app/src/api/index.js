@@ -6,7 +6,6 @@ import qs from "qs";
 //     uid:sessionStorage.uid
 // })
 axios.interceptors.request.use((config)=>{
-    console.log(config);
     config.headers.Authorization = JSON.stringify({
         tokenID:sessionStorage.tokenID,
         uid:sessionStorage.uid
@@ -15,7 +14,6 @@ axios.interceptors.request.use((config)=>{
     return config
 });//请求拦截器
 axios.interceptors.response.use(data=>{
-    console.log("run 响应拦截器",data);//后台返回数据的操作
     return data;
 },err=>{
     let str = err.toString();
@@ -70,5 +68,21 @@ export let addResumen = (data)=>{
         method:"post",
         url:"/admin/addResumen",
         data:qs.stringify(data)
+    })
+}
+//获取个人简历
+export let myResume = (data)=>{
+    return axios({
+        method:"get",
+        params:data,
+        url:"/admin/myresume",
+    })
+}
+//获取所有简历
+export let resume = (data)=>{
+    return axios({
+        method:"get",
+        params:data,
+        url:"/admin/resume",
     })
 }

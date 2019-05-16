@@ -29,11 +29,11 @@ export default class extends Component {
             passWord:md5(passWord)
         })
         .then(res=>{
-            console.log('run login success');
+            
             if(res.data.state=="1"){
                 sessionStorage.setItem("uid",res.data.code.uid);
                 sessionStorage.setItem("tokenID",res.data.code.tokenID);
-                // console.log(this.props);
+                
                 axios.defaults.headers.common['Authorization'] = JSON.stringify({
                     tokenID:sessionStorage.tokenID,
                     uid:sessionStorage.uid

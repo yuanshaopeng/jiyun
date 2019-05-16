@@ -23,9 +23,7 @@ export default class extends React.Component {
             })
         })
     }
-    beforeEnter(a,b){
-        console.log(a,b)
-    }
+   
     handleSelect(key,ev){
         if(key.length>0){
             if(key[0].startsWith("/")){

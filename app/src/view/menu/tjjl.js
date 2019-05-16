@@ -1,4 +1,5 @@
 import React from "react";
+import "../../assets/css/tjjl.css";
 import {
     isEnter,
     subject,
@@ -15,6 +16,7 @@ import {
 } from 'antd';
 const Option = Select.Option;
 const Dragger = Upload.Dragger;
+let timer = null;
 export default class extends React.Component {
     constructor(props){
         super(props);
@@ -31,7 +33,7 @@ export default class extends React.Component {
             path:"/rankList"
         }).then(res=>{
             subject().then(res=>{
-                console.log(res);
+               
                 this.setState({
                     subjectList:res.data.code
                 })
@@ -51,7 +53,7 @@ export default class extends React.Component {
         })
         classList({subjectID:val.trim()})
         .then(res=>{
-            console.log(res);
+           
             this.setState({
                 classArr : res.data.code
             })
@@ -91,13 +93,30 @@ export default class extends React.Component {
     }
     handleAddResumen = ()=>{
         console.log(this.state.resumenObj);
-        addResumen(this.state.resumenObj)
-        .then(res=>{
-            console.log(res);
-        })
+        //防抖
+        // if(timer){
+        //     clearTimeout(timer);
+        // }
+        // timer = setTimeout(() => {
+            addResumen(this.state.resumenObj)
+            .then(res=>{
+                // console.log(res);
+            })
+        // }, 200);
+        //截流
+        // this.setState({
+        //     isSend:false
+        // })
+        // addResumen(this.state.resumenObj)
+        // .then(res=>{
+        //     this.setState({
+        //         isSend:true
+        //     })
+        // })
     }
     render(){
-        return <div>
+        return <div className="tjjl">
+            <h2>上传简历</h2>
             <Input type="text" placeholder="请输入姓名" onChange={this.handleInputChange} ></Input><br/>
             <Select placeholder="请选择学习方向" style={{width:"200px"}} onChange={this.handleChange}>
                 {this.state.subjectList.map((item,index)=>{
@@ -109,8 +128,6 @@ export default class extends React.Component {
                     return <Option key={index} value={item._id}>{item.className}</Option>
                 })}
             </Select>
-            {/* <Input type="text" placeholder="请输入"></Input> */}
-            {/* 求职方向 */}
             <Dragger 
                 action="/api/upload"
                 name="files"
@@ -119,7 +136,7 @@ export default class extends React.Component {
             >
                 <p>请将需要上传的简历附件拖拽至文本框,仅支持.doc .docx .pdf</p>
             </Dragger>
-            <Button type="primary" disabled={!this.state.isSend} onClick={this.handleAddResumen}>Primary</Button>
+            <Button type="primary" disabled={!this.state.isSend} onClick={this.handleAddResumen}>上传</Button>
         </div>
     }
 }

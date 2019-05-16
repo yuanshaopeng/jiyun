@@ -132,7 +132,6 @@ Db.prototype = {
 	 */
 	findById(collection_name,id,backFn){
 		this.connect((dbase)=>{
-			console.log(id);
 			dbase.collection(collection_name)
 			.find({_id:ObjectId(id)}).toArray(function(err,data){
 				if(data.length ==0){

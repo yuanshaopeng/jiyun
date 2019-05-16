@@ -16,7 +16,6 @@ const fs = require("fs");
 router.post("/login",(req,res)=>{
     let qianduan = req.body;
     db.find("userList",{query:qianduan},(err,data)=>{
-        console.log(err,data);
         if(err) throw err;
         if(data.length ==0){
             res.send({
@@ -55,13 +54,9 @@ router.post("/upload",(req,res)=>{
         if(err){
             console.log(err);
         }else{
-            console.log(files)
-            console.log("---------------------------------")
-            console.log(option);
             let reg = /\.[a-z]+$/;
 
             let ext = files.files.path.match(reg)[0];
-            console.log(ext);
             // if(ext===".jpg"||ext===".png"||ext===".gif"){
 
             // }else{

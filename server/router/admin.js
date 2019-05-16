@@ -5,7 +5,6 @@ const Db = require("./db.js");
 const db = new Db("jiyunStudent");
 //在中间件中验证用户身份
 router.use((req,res,next)=>{
-    console.log(req.headers.authorization);
     let obj = JSON.parse(req.headers.authorization);
     jwt.verify(obj.tokenID,(err,data)=>{
         if(err){
@@ -84,7 +83,6 @@ router.get("/option",(req,res)=>{
     let obj = JSON.parse(req.headers.authorization);
     let id = obj.uid;
     _option(id).then(result=>{
-        console.log(result);
         res.send(result)
     })
 })
@@ -172,12 +170,63 @@ router.get("/classList",(req,res)=>{
 })
 //提交简历接口
 router.post("/addResumen",(req,res)=>{
-    console.log(req.body);
-    db.insertOne("resumenList",req.body,(err,data)=>{
+    let userID = JSON.parse(req.headers.authorization).uid;
+    let obj = Object.assign(req.body,{userID,uploadTime:new Date().getTime()});
+    db.insertOne("resumenList",obj,(err,data)=>{
         res.send({
             state:'1',
             code:"success"
         })
+    })
+})
+//获取个人简历
+router.get("/myresume",(req,res)=>{
+    let userID = JSON.parse(req.headers.authorization).uid;
+    let qianduan = req.query;
+    db.find("resumenList",{query:{userID},skip:qianduan.skip*1,limit:qianduan.limit*1},(err,data)=>{
+        db.count("resumenList",{userID},(err,count)=>{
+            // data.count = count
+            res.send({
+                state:'1',
+                code:"success",
+                data:{
+                    total:count,
+                    list:data
+                }
+            })
+        })
+        
+    })
+})
+//获取所有简历
+router.get("/resume",(req,res)=>{
+    let qianduan = req.query;
+    let query = {};
+    if(qianduan.studentName){
+        query.studentName=qianduan.studentName;
+    }
+    if(qianduan.classID){
+        query.classID=qianduan.classID;
+    }
+    if(qianduan.subjectID){
+        query.subjectID=qianduan.subjectID;
+    }
+    db.find("resumenList",{
+        query,
+        skip:qianduan.skip*1,
+        limit:qianduan.limit*1
+    },(err,data)=>{
+        db.count("resumenList",query,(err,count)=>{
+            res.send({
+                state:'1',
+                code:"success",
+                data:{
+                    total:count,
+                    list:data
+                }
+            })
+        })
+        
     })
 })
 
