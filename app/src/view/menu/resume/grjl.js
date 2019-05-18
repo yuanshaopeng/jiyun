@@ -26,7 +26,7 @@ export default class extends React.Component {
 
     }
     render(){
-        return <div>个人简历
+        return <div>
             <ResumeTable resumeList={this.state.resumeList} isDel={true} />
             <Pagination defaultCurrent={1} total={50} defaultPageSize={8} hideOnSinglePage={true} pageSize={8} total={this.state.total} 
             onChange={(page,pageSize)=>{

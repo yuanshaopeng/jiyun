@@ -31,6 +31,25 @@ export default class extends React.Component {
                     title:"上传时间",
                     dataIndex:"uploadTime",
                     key:"uploadTime",
+                    render(t,item,index){
+                        let d = new Date(t*1);
+                        
+                        return <span>
+                            {
+                                d.getFullYear()+"/"+
+                                ((d.getMonth()+1)<=9?"0"+(d.getMonth()+1):(d.getMonth()+1))
+                                +"/"+
+                                (d.getDate()<=9?"0"+d.getDate():d.getDate())
+                                +" "+
+                                (d.getHours()<=9?"0"+d.getHours():d.getHours())
+                                +":"+                
+                                (d.getMinutes()<=9?"0"+d.getMinutes():d.getMinutes())
+                                +":"+
+                                (d.getSeconds()<=9?"0"+d.getSeconds():d.getSeconds())
+                                
+                            }
+                        </span>
+                    }
                 },{
                     title:"操作",
                     dataIndex:"url",

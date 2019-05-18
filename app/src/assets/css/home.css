@@ -9,6 +9,7 @@
     color: white;
     line-height: 80px;
     text-indent: 20px;
+    float: left;
 }
 .homeIndex .ant-tree li .ant-tree-node-content-wrapper.ant-tree-node-selected{
     background: #1890ff;;
@@ -32,4 +33,9 @@
     top: 82px;
     bottom:0px;
     right: 0px;
+}
+.userBox{
+    float: right;
+    margin-right: 20px;
+    line-height: 80px;
 }

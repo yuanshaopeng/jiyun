@@ -4,22 +4,36 @@ import {
 } from "react-router-dom";
 import {option} from "../api/index";
 import routerConfig from "../router/menuRouter";
-import { Tree } from 'antd';
+// import { Tree } from 'antd';
+import { Avatar, Badge,Menu, Dropdown,Icon,Tree} from 'antd';
 import "../assets/css/home.css"
+// import UserMenu from "../components/userMenu";
+import Talk from "../components/talk";
 const { TreeNode } = Tree;
 export default class extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
             menuList:[],
+            isloding:true,
+            isShow:false,
+            user:{}
             
         }
+        this.handleShow = this.handleShow.bind(this);
     }
-
+    handleShow(bol){
+        this.setState({
+            isShow:bol
+        })
+    }
     componentDidMount() {
         option().then(res=>{
+            console.log(res);
             this.setState({
-                menuList:res.data[2]
+                user:{userName:res.data[0].userName,tx:res.data[0].userTx,rankName:res.data[1].roleName},
+                menuList:res.data[2],
+                isloding:false
             })
         })
     }
@@ -35,11 +49,47 @@ export default class extends React.Component {
     }
     
     render(){
-        return <div className="homeIndex">
+        return <div>{
+            !this.state.isloding?
+            <div className="homeIndex">
+            <Talk ref="talk" isShowFn={this.handleShow} isShow={this.state.isShow} user={
+                {
+                    userName:this.state.user.userName,
+                    tx:this.state.user.userTx,
+                    userID:sessionStorage.uid
+                }
+
+            }/>
         <header>
             <h1>积云教育学生管理平台</h1>
-            <div>
-                
+            <div className="userBox">
+                <div>
+                {/* <span> */}
+                <Dropdown overlay={<Menu>
+        <Menu.Item>
+            <span>{this.state.user.userName}</span>
+        </Menu.Item>
+        <Menu.Item>
+            <span>{this.state.user.rankName}</span>
+        </Menu.Item>
+        <Menu.Item>
+            <span onClick={()=>{
+                sessionStorage.removeItem("tokenID")
+                sessionStorage.removeItem("uid");
+                window.location.href="http://localhost:3000/login";
+            }}><Icon type="poweroff" /></span>
+        </Menu.Item>
+        </Menu>}>
+
+                    <Avatar shape="square" icon="user" />
+                </Dropdown>
+                <span style={{marginLeft:"20px"}}>
+                    <Avatar shape="square" icon="mail" onClick={()=>{
+                        this.handleShow(!this.state.isShow)
+                    }} />   
+                </span>
+                {/* </span> */}
+            </div>
             </div>
         </header>
         <section>
@@ -74,6 +124,8 @@ export default class extends React.Component {
                 })}
             </div>
         </section>
+    </div>:null
+    }
     </div>
     }
 }

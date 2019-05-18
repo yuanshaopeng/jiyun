@@ -1,0 +1,50 @@
+.talk{
+    width: 100%;
+    height: 100%;
+    position: fixed;
+    background: rgba(0,0,0,0.7);
+    z-index: 2;
+}
+.talk .content{
+    background: white;
+    width: 800px;
+    height: 600px;
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    top: 0;
+    margin: auto;
+}
+.talkNav{
+    background:#1890ff;
+    
+    height:45px;
+    line-height: 45px;
+}
+.talkNav h3{
+    color:white;
+    text-indent: 20px;
+}
+.talk section{
+    height: 555px;  
+}
+.talkRight{
+    width: 199px;
+    border-left:1px solid #CCCC;
+    float: left; 
+    height: 555px;
+}
+.talkLeft{
+    width:600px;
+    float: left;
+    height: 555px;
+}
+.talkmsg{
+    height: 384px;
+    padding: 0px 10px;
+    border-bottom:1px solid #ccc; 
+}
+.talkinput{
+    height: 150px;
+}
